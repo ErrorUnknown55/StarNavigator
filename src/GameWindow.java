@@ -2,6 +2,7 @@
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -42,7 +43,7 @@ public class GameWindow extends JFrame implements ActionListener, KeyListener, M
         setTitle("Star Navigator");
 
         //Set size of the game panel
-        setSize(650, 550);
+        setSize(750, 650);
 
         // Center the frame on the screen
         setLocationRelativeTo(null);
@@ -51,31 +52,46 @@ public class GameWindow extends JFrame implements ActionListener, KeyListener, M
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
 
-
         //Create main panel
         mainPanel = new JPanel();
+        FlowLayout flowLayout = new FlowLayout();
+		mainPanel.setLayout(flowLayout);
 
         GridLayout gridLayout;
 
         //Create Labels
-        gameTimeLabel = new JLabel("Time");
-        playerLifeLabel = new JLabel("Player Lives");
+        gameTimeLabel = new JLabel("Time: ");
+        playerLifeLabel = new JLabel("Player Lives: ");
+
+        //Create text fields and set their colour, etc.
+        gameTimeText = new JTextField(5);
+        playerLifeText = new JTextField(5);
+
+        gameTimeText.setEditable(false);
+        playerLifeText.setEditable(false);
+
+        gameTimeText.setBackground(Color.LIGHT_GRAY);
+        playerLifeText.setBackground(Color.lightGray);
 
         //Create infoPanel
 		JPanel infoPanel = new JPanel();
         gridLayout = new GridLayout(1, 2);
         infoPanel.setLayout(gridLayout);
-        infoPanel.setBackground(Color.blue);
+        infoPanel.setBackground(Color.white);
         
         //Add user interface objects to infoPanel
         infoPanel.add(gameTimeLabel);
+        infoPanel.add(gameTimeText);
+
         infoPanel.add(playerLifeLabel);
+        infoPanel.add(playerLifeText);
 
 
 
         //Create gamePanel
         gamePanel = new GamePanel();
-        gamePanel.setPreferredSize(new Dimension(500, 400));
+        gamePanel.setPreferredSize(new Dimension(550, 500));
+        gamePanel.setBackground(Color.BLACK);
         gamePanel.createGameEntities();
 
 
@@ -91,7 +107,7 @@ public class GameWindow extends JFrame implements ActionListener, KeyListener, M
 
         //Create buttonPanel
 		JPanel buttonPanel = new JPanel();
-		gridLayout = new GridLayout(1, 4);
+		gridLayout = new GridLayout(1, 3);
 		buttonPanel.setLayout(gridLayout);
         
 
