@@ -11,6 +11,7 @@ public class GamePanel extends JPanel {
     
     public GamePanel () {
         ship = null;
+        
     }
 
     public void createGameEntities() {

@@ -55,7 +55,7 @@ public class GameWindow extends JFrame implements ActionListener {
 
         //Create gamePanel
         gamePanel = new GamePanel();
-        gamePanel.setPreferredSize(new Dimension(400, 400));
+        gamePanel.setPreferredSize(new Dimension(500, 400));
         gamePanel.createGameEntities();
 
         //Create buttonPanel
