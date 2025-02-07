@@ -1,11 +1,11 @@
 import java.awt.*;
 
-public class Projectile {
+public class Enemy {
     private int x;
     private int y;
     private int speed;
 
-    public Projectile(int x, int y, int speed) {
+    public Enemy(int x, int y, int speed) {
         this.x = x;
         this.y = y;
         this.speed = speed;
