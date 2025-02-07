@@ -1,6 +1,7 @@
 
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,6 +17,7 @@ public class GameWindow extends JFrame implements ActionListener {
 	private JButton exitBtn;
 
     private JPanel mainPanel;
+    private GamePanel gamePanel;
 
     private Container c;
     
@@ -25,7 +27,7 @@ public class GameWindow extends JFrame implements ActionListener {
         setTitle("Star Navigator");
 
         //Set size of the game panel
-        setSize(500, 550);
+        setSize(650, 550);
 
         // Center the frame on the screen
         setLocationRelativeTo(null);
@@ -51,23 +53,24 @@ public class GameWindow extends JFrame implements ActionListener {
 
         GridLayout gridLayout;
 
-        
+        //Create gamePanel
+        gamePanel = new GamePanel();
+        gamePanel.setPreferredSize(new Dimension(400, 400));
+        gamePanel.createGameEntities();
 
-
-
-        // create buttonPanel
+        //Create buttonPanel
 		JPanel buttonPanel = new JPanel();
 		gridLayout = new GridLayout(1, 4);
 		buttonPanel.setLayout(gridLayout);
         
 
-        // add buttons to buttonPanel
-
+        //Add buttons to buttonPanel
 		buttonPanel.add (startBtn);
 		buttonPanel.add (pauseBtn);
 		buttonPanel.add (exitBtn);
 
         // add sub-panels with GUI objects to mainPanel and set its colour
+        mainPanel.add(gamePanel);
         mainPanel.add(buttonPanel);
         mainPanel.setBackground(new Color(0, 0, 204));
         

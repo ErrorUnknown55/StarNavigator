@@ -5,9 +5,16 @@ import javax.swing.JPanel;
 */
 
 public class GamePanel extends JPanel {
-    
+
+    Ship ship;
+
     
     public GamePanel () {
+        ship = null;
+    }
 
+    public void createGameEntities() {
+
+        ship = new Ship(50, 100, 10);
     }
 }
