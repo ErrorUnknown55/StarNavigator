@@ -1,20 +1,6 @@
-
-import java.awt.Color;
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
+import java.awt.*;			// need this for GUI objects
+import java.awt.event.*;			// need this for Layout Managers
+import javax.swing.*;		// need this to respond to GUI events
 
 public class GameWindow extends JFrame implements ActionListener, KeyListener, MouseListener {
 
@@ -45,19 +31,10 @@ public class GameWindow extends JFrame implements ActionListener, KeyListener, M
         //Set size of the game panel
         setSize(750, 650);
 
-        // Center the frame on the screen
-        setLocationRelativeTo(null);
-
-        // set properties of window
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setVisible(true);
-
-        //Create main panel
-        mainPanel = new JPanel();
-        FlowLayout flowLayout = new FlowLayout();
-		mainPanel.setLayout(flowLayout);
-
-        GridLayout gridLayout;
+        //Create buttons
+		startBtn = new JButton ("Play");
+        pauseBtn = new JButton ("Pasue");
+        exitBtn = new JButton ("Exit");
 
         //Create Labels
         gameTimeLabel = new JLabel("Time: ");
@@ -73,6 +50,13 @@ public class GameWindow extends JFrame implements ActionListener, KeyListener, M
         gameTimeText.setBackground(Color.LIGHT_GRAY);
         playerLifeText.setBackground(Color.lightGray);
 
+        //Create main panel
+        mainPanel = new JPanel();
+        FlowLayout flowLayout = new FlowLayout();
+		mainPanel.setLayout(flowLayout);
+
+        GridLayout gridLayout;
+
         //Create infoPanel
 		JPanel infoPanel = new JPanel();
         gridLayout = new GridLayout(1, 2);
@@ -86,19 +70,11 @@ public class GameWindow extends JFrame implements ActionListener, KeyListener, M
         infoPanel.add(playerLifeLabel);
         infoPanel.add(playerLifeText);
 
-
-
         //Create gamePanel
         gamePanel = new GamePanel();
         gamePanel.setPreferredSize(new Dimension(550, 500));
         gamePanel.setBackground(Color.BLACK);
         gamePanel.createGameEntities();
-
-
-        //create buttons
-		startBtn = new JButton ("Play");
-        pauseBtn = new JButton ("Pasue");
-        exitBtn = new JButton ("Exit");
 
 		// add listener to each button (same as the current object)
 		startBtn.addActionListener(this);
@@ -125,6 +101,14 @@ public class GameWindow extends JFrame implements ActionListener, KeyListener, M
         // add mainPanel to window surface
 		c = getContentPane();
 		c.add(mainPanel);
+
+
+        // Center the frame on the screen
+        setLocationRelativeTo(null);
+
+        // set properties of window
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setVisible(true); 
     }
 
     //Implement a single method in ActionListener interface
