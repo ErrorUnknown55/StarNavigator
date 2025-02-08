@@ -1,16 +1,20 @@
 import java.awt.*;			// need this for GUI objects
 import java.awt.event.*;			// need this for Layout Managers
-import javax.swing.*;		// need this to respond to GUI events
+import javax.swing.*;
 
 public class GameWindow extends JFrame implements ActionListener, KeyListener, MouseListener {
 
     //Declare labels 
     private JLabel gameTimeLabel;
     private JLabel playerLifeLabel;
+    private JLabel currScoreLabel;
+    private JLabel highScoreLabel;
 
     //Declare text fields
     private JTextField gameTimeText;
     private JTextField playerLifeText;
+    private JTextField currScoreText;
+    private JTextField highScoreText;
 
 
     //Declare buttons
@@ -31,25 +35,6 @@ public class GameWindow extends JFrame implements ActionListener, KeyListener, M
         //Set size of the game panel
         setSize(750, 650);
 
-        //Create buttons
-		startBtn = new JButton ("Play");
-        pauseBtn = new JButton ("Pasue");
-        exitBtn = new JButton ("Exit");
-
-        //Create Labels
-        gameTimeLabel = new JLabel("Time: ");
-        playerLifeLabel = new JLabel("Player Lives: ");
-
-        //Create text fields and set their colour, etc.
-        gameTimeText = new JTextField(5);
-        playerLifeText = new JTextField(5);
-
-        gameTimeText.setEditable(false);
-        playerLifeText.setEditable(false);
-
-        gameTimeText.setBackground(Color.LIGHT_GRAY);
-        playerLifeText.setBackground(Color.lightGray);
-
         //Create main panel
         mainPanel = new JPanel();
         FlowLayout flowLayout = new FlowLayout();
@@ -57,9 +42,34 @@ public class GameWindow extends JFrame implements ActionListener, KeyListener, M
 
         GridLayout gridLayout;
 
+
+
+        //Create Labels
+        gameTimeLabel = new JLabel("Time: ");
+        playerLifeLabel = new JLabel("Player Lives: ");
+        currScoreLabel = new JLabel("Current score: ");
+        highScoreLabel = new JLabel("High Score: ");
+
+        //Create text fields and set their colour, etc.
+        gameTimeText = new JTextField(5);
+        playerLifeText = new JTextField(5);
+        currScoreText = new JTextField(5);
+        highScoreText = new JTextField(5);
+
+        gameTimeText.setEditable(false);
+        playerLifeText.setEditable(false);
+        currScoreText.setEditable(false);
+        highScoreText.setEditable(false);
+
+        gameTimeText.setBackground(Color.LIGHT_GRAY);
+        playerLifeText.setBackground(Color.lightGray);
+        currScoreText.setBackground(Color.lightGray);
+        highScoreText.setBackground(Color.lightGray);
+
+
         //Create infoPanel
 		JPanel infoPanel = new JPanel();
-        gridLayout = new GridLayout(1, 2);
+        gridLayout = new GridLayout(1, 4);
         infoPanel.setLayout(gridLayout);
         infoPanel.setBackground(Color.white);
         
@@ -70,11 +80,25 @@ public class GameWindow extends JFrame implements ActionListener, KeyListener, M
         infoPanel.add(playerLifeLabel);
         infoPanel.add(playerLifeText);
 
+        infoPanel.add(highScoreLabel);
+        infoPanel.add(highScoreText);
+
+        infoPanel.add(currScoreLabel);
+        infoPanel.add(currScoreText);
+
+
         //Create gamePanel
         gamePanel = new GamePanel();
         gamePanel.setPreferredSize(new Dimension(550, 500));
         gamePanel.setBackground(Color.BLACK);
         gamePanel.createGameEntities();
+
+
+        
+        //Create buttons
+		startBtn = new JButton("Play");
+        pauseBtn = new JButton("Pasue");
+        exitBtn = new JButton("Exit");
 
 		// add listener to each button (same as the current object)
 		startBtn.addActionListener(this);
@@ -88,9 +112,9 @@ public class GameWindow extends JFrame implements ActionListener, KeyListener, M
         
 
         //Add buttons to buttonPanel
-		buttonPanel.add (startBtn);
-		buttonPanel.add (pauseBtn);
-		buttonPanel.add (exitBtn);
+		buttonPanel.add(startBtn);
+		buttonPanel.add(pauseBtn);
+		buttonPanel.add(exitBtn);
 
         // add sub-panels with GUI objects to mainPanel and set its colour
         mainPanel.add(infoPanel);
@@ -114,8 +138,17 @@ public class GameWindow extends JFrame implements ActionListener, KeyListener, M
     //Implement a single method in ActionListener interface
     @Override
     public void actionPerformed(ActionEvent e) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
+        String cmd = e.getActionCommand();
+        
+        //Start
+        if(cmd.equals(startBtn.getText()))
+            gamePanel.drawGameEntities();
+
+        //Pause
+
+        //Exit
+        if(cmd.equals(exitBtn.getText()))
+            System.exit(0);
     }
     
     //Implement methods in KeyListener interface
@@ -127,7 +160,10 @@ public class GameWindow extends JFrame implements ActionListener, KeyListener, M
 
     @Override
     public void keyPressed(KeyEvent e) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        //Left
+
+        //Right
+
     }
 
     @Override
