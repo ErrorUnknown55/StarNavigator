@@ -78,6 +78,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
         running = true;
         gameThread = new Thread(this);
         gameThread.start();
+        requestFocusInWindow();  //Request focues to receive key events
     }
 
     public void stopGame() {
