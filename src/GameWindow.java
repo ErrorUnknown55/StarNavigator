@@ -81,11 +81,8 @@ public class GameWindow extends JFrame implements ActionListener, /*KeyListener,
         //Create gamePanel
         gamePanel = new GamePanel();
         gamePanel.setPreferredSize(new Dimension(550, 500));
-        /*gamePanel.setBackground(Color.BLACK);
-        gamePanel.createGameEntities();*/
-
-
-        
+    
+    
         //Create buttons
 		startBtn = new JButton("Play");
         pauseBtn = new JButton("Pasue");

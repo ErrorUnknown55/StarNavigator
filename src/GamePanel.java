@@ -1,42 +1,5 @@
-
-/**
-   A component that displays all the game entities
-*/
-/*import java.awt.Graphics;
-import java.awt.Graphics2D;
-import javax.swing.JPanel;
-
-public class GamePanel extends JPanel {
-
-    private JPanel panel;
-
-    Ship ship;
-    Enemy enemy;
-
-    
-    public GamePanel () {
-        ship = null;
-        enemy = null;
-    }
-
-    public void createGameEntities() {
-
-        ship = new Ship(10, 0, 10);
-        enemy =  new Enemy(0, 0, 10);
-    }
-
-    public void drawGameEntities() {
-        Graphics g = panel.getGraphics();
-        Graphics2D g2 = (Graphics2D) g;
-        
-        if(ship != null)
-            ship.draw(g2);
-    }
-}*/
-
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -52,11 +15,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 
     //player obj
     private Player player;
-
-    // Player variables
-    //private int playerX = gameScrWidth / 2;
-    //private int playerY = gameScrHeight - 50;
-    //private int playerSpeed = 10;
 
     // Projectile variables
     private List<Rectangle> projectiles = new ArrayList<>();
@@ -158,11 +116,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 
         // Draw player (triangle)
         player.draw(g2d);
-        /*int[] xPoints = {playerX, playerX + 20, playerX + 10};
-        int[] yPoints = {playerY, playerY, playerY - 20};
-        g2d.setColor(Color.WHITE);
-        g2d.fillPolygon(xPoints, yPoints, 3);*/
-
+    
         // Draw projectiles
         g2d.setColor(Color.RED);
         for (Rectangle projectile : projectiles) {
