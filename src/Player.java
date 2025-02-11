@@ -25,14 +25,9 @@ public class Player {
     //Move the player Right
     public void moveRigth (int scrWidth) {
         pX += speed;
-        System.out.println(pX);
         
-        if (pX > 525)
-            pX = 525; //Prevents the player form moving out of the screenn
-        
-        // if (pX > scrWidth - pWidth)
-        //     pX = scrWidth - pWidth; //Prevents the player form moving out of the screenn
-        
+        if (pX > 530)
+            pX = 530; //Prevents the player form moving out of the screen    
     }
     
     //Get the player shape(for collision detection)
