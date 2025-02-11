@@ -65,7 +65,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
     private void update() {
         // Spawn enemies
         if (Math.random() * spawnRate < 1) {
-            int enemyX = (int) (Math.random() * gameScrWidth);
+            int enemyX = (int) (Math.random() * (gameScrWidth - 19));
             enemies.add(new Rectangle(enemyX, 0, 20, 20));
         }
 
