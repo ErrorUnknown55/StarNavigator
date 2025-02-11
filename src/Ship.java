@@ -1,4 +1,4 @@
-import java.awt.*;
+/*import java.awt.*;
 
 public class Ship {
     
@@ -34,4 +34,4 @@ public class Ship {
         g2d.setColor(Color.WHITE);
         g2d.fillPolygon(xPoints, yPoints, 3);
     }
-}
+}*/

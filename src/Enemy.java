@@ -1,4 +1,4 @@
-import java.awt.*;
+/*import java.awt.*;
 
 public class Enemy {
     private int x;
@@ -27,4 +27,4 @@ public class Enemy {
         g2d.setColor(Color.GREEN);
         g2d.fillRect(x, y, 20, 20);
     }
-}
+}*/

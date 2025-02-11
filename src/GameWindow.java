@@ -2,30 +2,21 @@ import java.awt.*;			// need this for GUI objects
 import java.awt.event.*;			// need this for Layout Managers
 import javax.swing.*;
 
-public class GameWindow extends JFrame implements ActionListener, KeyListener, MouseListener {
+public class GameWindow extends JFrame implements ActionListener, /*KeyListener,*/ MouseListener {
 
     //Declare labels 
-    private JLabel gameTimeLabel;
-    private JLabel playerLifeLabel;
-    private JLabel currScoreLabel;
-    private JLabel highScoreLabel;
+    private JLabel gameTimeLabel, playerLifeLabel, currScoreLabel, highScoreLabel;
 
     //Declare text fields
-    private JTextField gameTimeText;
-    private JTextField playerLifeText;
-    private JTextField currScoreText;
-    private JTextField highScoreText;
-
+    private JTextField gameTimeText, playerLifeText, currScoreText, highScoreText;
 
     //Declare buttons
-	private JButton startBtn;
-	private JButton pauseBtn;
-	private JButton exitBtn;
+	private JButton startBtn, pauseBtn, exitBtn;
 
     private JPanel mainPanel;
     private GamePanel gamePanel;
 
-    private Container c;
+    final private Container c;
     
     public GameWindow() {
         
@@ -90,8 +81,8 @@ public class GameWindow extends JFrame implements ActionListener, KeyListener, M
         //Create gamePanel
         gamePanel = new GamePanel();
         gamePanel.setPreferredSize(new Dimension(550, 500));
-        gamePanel.setBackground(Color.BLACK);
-        gamePanel.createGameEntities();
+        /*gamePanel.setBackground(Color.BLACK);
+        gamePanel.createGameEntities();*/
 
 
         
@@ -120,7 +111,7 @@ public class GameWindow extends JFrame implements ActionListener, KeyListener, M
         mainPanel.add(infoPanel);
         mainPanel.add(gamePanel);
         mainPanel.add(buttonPanel);
-        mainPanel.setBackground(new Color(0, 0, 204));
+        mainPanel.setBackground(Color.WHITE);
         
         // add mainPanel to window surface
 		c = getContentPane();
@@ -141,19 +132,21 @@ public class GameWindow extends JFrame implements ActionListener, KeyListener, M
         String cmd = e.getActionCommand();
         
         //Start
-        if(cmd.equals(startBtn.getText()))
-            gamePanel.drawGameEntities();
+        if (e.getSource() == startBtn) {
+            gamePanel.startGame(); // Start the game
+        } 
 
         //Pause
 
         //Exit
-        if(cmd.equals(exitBtn.getText()))
+        if (e.getSource() == exitBtn) {
             System.exit(0);
+        }
     }
     
     //Implement methods in KeyListener interface
 
-    @Override
+   /* @Override
     public void keyTyped(KeyEvent e) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
@@ -169,7 +162,7 @@ public class GameWindow extends JFrame implements ActionListener, KeyListener, M
     @Override
     public void keyReleased(KeyEvent e) {
         throw new UnsupportedOperationException("Not supported yet.");
-    }
+    }*/
     
 
     //Implement methods in MouseListener interface
