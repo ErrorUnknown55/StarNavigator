@@ -62,7 +62,7 @@ public class GameWindow extends JFrame implements ActionListener, /*KeyListener,
 		JPanel infoPanel = new JPanel();
         gridLayout = new GridLayout(1, 4);
         infoPanel.setLayout(gridLayout);
-        infoPanel.setBackground(Color.white);
+        infoPanel.setBackground(Color.white);//Set the background color white
         
         //Add user interface objects to infoPanel
         infoPanel.add(gameTimeLabel);
@@ -129,14 +129,10 @@ public class GameWindow extends JFrame implements ActionListener, /*KeyListener,
     //Implement a single method in ActionListener interface
     @Override
     public void actionPerformed(ActionEvent e) {
-        String cmd = e.getActionCommand();
-        
         //Start
         if (e.getSource() == startBtn) {
             gamePanel.startGame(); // Start the game
         } 
-
-        //Pause
 
         //Exit
         if (e.getSource() == exitBtn) {
@@ -144,25 +140,6 @@ public class GameWindow extends JFrame implements ActionListener, /*KeyListener,
         }
     }
     
-    //Implement methods in KeyListener interface
-
-   /* @Override
-    public void keyTyped(KeyEvent e) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public void keyPressed(KeyEvent e) {
-        //Left
-
-        //Right
-
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }*/
     
 
     //Implement methods in MouseListener interface

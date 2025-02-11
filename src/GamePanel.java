@@ -50,10 +50,13 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
     private Thread gameThread;
     private boolean running = false;
 
+    //player obj
+    private Player player;
+
     // Player variables
-    private int playerX = gameScrWidth / 2;
-    private int playerY = gameScrHeight - 50;
-    private int playerSpeed = 10;
+    //private int playerX = gameScrWidth / 2;
+    //private int playerY = gameScrHeight - 50;
+    //private int playerSpeed = 10;
 
     // Projectile variables
     private List<Rectangle> projectiles = new ArrayList<>();
@@ -72,6 +75,9 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
         setBackground(Color.BLACK);
         setFocusable(true);
         addKeyListener(this);
+
+        //Initialize player
+        player = new Player(gameScrWidth / 2, gameScrHeight - 50);
     }
 
     public void startGame() {
@@ -139,7 +145,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
                     break;
                 }
             }
-            if (enemy.intersects(playerX, playerY, 20, 20)) {
+            if (enemy.intersects(player.getBounds())) {
                 running = false; // Game over
             }
         }
@@ -151,10 +157,11 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
         Graphics2D g2d = (Graphics2D) g;
 
         // Draw player (triangle)
-        int[] xPoints = {playerX, playerX + 20, playerX + 10};
+        player.draw(g2d);
+        /*int[] xPoints = {playerX, playerX + 20, playerX + 10};
         int[] yPoints = {playerY, playerY, playerY - 20};
         g2d.setColor(Color.WHITE);
-        g2d.fillPolygon(xPoints, yPoints, 3);
+        g2d.fillPolygon(xPoints, yPoints, 3);*/
 
         // Draw projectiles
         g2d.setColor(Color.RED);
@@ -176,14 +183,14 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
-        if (key == KeyEvent.VK_LEFT && playerX > 0) {
-            playerX -= playerSpeed;
+        if (key == KeyEvent.VK_LEFT) {
+            player.moveLeft();
         }
-        if (key == KeyEvent.VK_RIGHT && playerX < gameScrWidth - 20) {
-            playerX += playerSpeed;
+        if (key == KeyEvent.VK_RIGHT) {
+            player.moveRigth(gameScrHeight);
         }
         if (key == KeyEvent.VK_SPACE) {
-            projectiles.add(new Rectangle(playerX + 5, playerY - 20, 5, 10));
+            projectiles.add(new Rectangle(player.getX() + 5, player.getY() - 20, 5, 10));
         }
     }
 
