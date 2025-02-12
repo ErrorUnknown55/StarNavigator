@@ -33,8 +33,6 @@ public class GameWindow extends JFrame implements ActionListener, /*KeyListener,
 
         GridLayout gridLayout;
 
-
-
         //Create Labels
         gameTimeLabel = new JLabel("Time: ");
         playerLifeLabel = new JLabel("Player Lives: ");
@@ -52,7 +50,7 @@ public class GameWindow extends JFrame implements ActionListener, /*KeyListener,
         currScoreText.setEditable(false);
         highScoreText.setEditable(false);
 
-        gameTimeText.setBackground(Color.LIGHT_GRAY);
+        gameTimeText.setBackground(Color.lightGray);
         playerLifeText.setBackground(Color.lightGray);
         currScoreText.setBackground(Color.lightGray);
         highScoreText.setBackground(Color.lightGray);
@@ -77,9 +75,8 @@ public class GameWindow extends JFrame implements ActionListener, /*KeyListener,
         infoPanel.add(currScoreLabel);
         infoPanel.add(currScoreText);
 
-
         //Create gamePanel
-        gamePanel = new GamePanel();
+        gamePanel = new GamePanel(this);
         gamePanel.setPreferredSize(new Dimension(550, 500));
     
     
@@ -136,8 +133,11 @@ public class GameWindow extends JFrame implements ActionListener, /*KeyListener,
             System.exit(0);
         }
     }
-    
-    
+
+
+    public void updateCurrentScore(int score) {
+        currScoreText.setText(Integer.toString(score));
+    }
 
     //Implement methods in MouseListener interface
     @Override
@@ -169,4 +169,5 @@ public class GameWindow extends JFrame implements ActionListener, /*KeyListener,
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'mouseExited'");
     }
+
 }

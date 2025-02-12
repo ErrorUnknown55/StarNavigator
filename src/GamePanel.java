@@ -13,7 +13,10 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
     private Thread gameThread;
     private boolean running = false;
 
-    //player obj
+    //GameWindow obj
+    private GameWindow gameWindow;
+
+    //Player obj
     private Player player;
 
     // Projectile variables
@@ -28,7 +31,8 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
     // Score
     private int score = 0;
 
-    public GamePanel() {
+    public GamePanel(GameWindow gameWindow) {
+        this.gameWindow = gameWindow;
         setPreferredSize(new Dimension(gameScrWidth, gameScrHeight));
         setBackground(Color.BLACK);
         setFocusable(true);
@@ -45,6 +49,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
         requestFocusInWindow();  //Request focues to receive key events
     }
 
+    
     public void stopGame() {
         running = false;
     }
@@ -63,6 +68,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
     }
 
     private void update() {
+        
         // Spawn enemies
         if (Math.random() * spawnRate < 1) {
             int enemyX = (int) (Math.random() * (gameScrWidth - 20));
@@ -100,6 +106,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
                     enemyIterator.remove();
                     projectileIterator.remove();
                     score += 10;
+                    gameWindow.updateCurrentScore(score);
                     break;
                 }
             }
@@ -129,9 +136,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
             g2d.fill(enemy);
         }
 
-        // Draw score
-        g2d.setColor(Color.WHITE);
-        g2d.drawString("Score: " + score, 10, 20);
+        
     }
 
     @Override
