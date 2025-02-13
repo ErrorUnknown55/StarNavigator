@@ -2,13 +2,13 @@ import java.awt.*;			// need this for GUI objects
 import java.awt.event.*;			// need this for Layout Managers
 import javax.swing.*;
 
-public class GameWindow extends JFrame implements ActionListener, /*KeyListener,*/ MouseListener {
+public class GameWindow extends JFrame implements ActionListener/*, KeyListener, MouseListener*/ {
 
     //Declare labels 
-    private JLabel gameTimeLabel, playerLifeLabel, currScoreLabel, highScoreLabel;
+    private JLabel gameTimeLabel, playerLifeLabel, currScoreLabel;
 
     //Declare text fields
-    private JTextField gameTimeText, playerLifeText, currScoreText, highScoreText;
+    private JTextField gameTimeText, playerLifeText, currScoreText;
 
     //Declare buttons
 	private JButton startBtn, pauseBtn, exitBtn;
@@ -24,7 +24,7 @@ public class GameWindow extends JFrame implements ActionListener, /*KeyListener,
         setTitle("Star Navigator");
 
         //Set size of the game panel
-        setSize(750, 650);
+        setSize(700, 650);
 
         //Create main panel
         mainPanel = new JPanel();
@@ -35,25 +35,28 @@ public class GameWindow extends JFrame implements ActionListener, /*KeyListener,
 
         //Create Labels
         gameTimeLabel = new JLabel("Time: ");
-        playerLifeLabel = new JLabel("Player Lives: ");
-        currScoreLabel = new JLabel("Current score: ");
-        highScoreLabel = new JLabel("High Score: ");
+        playerLifeLabel = new JLabel("Lives: ");
+        currScoreLabel = new JLabel("Score:");
 
         //Create text fields and set their colour, etc.
         gameTimeText = new JTextField(5);
         playerLifeText = new JTextField(5);
         currScoreText = new JTextField(5);
-        highScoreText = new JTextField(5);
 
         gameTimeText.setEditable(false);
         playerLifeText.setEditable(false);
         currScoreText.setEditable(false);
-        highScoreText.setEditable(false);
+        
 
-        gameTimeText.setBackground(Color.lightGray);
-        playerLifeText.setBackground(Color.lightGray);
-        currScoreText.setBackground(Color.lightGray);
-        highScoreText.setBackground(Color.lightGray);
+        //gameTimeText.setBackground(Color.lightGray);
+        //playerLifeText.setBackground(Color.lightGray);
+        //currScoreText.setBackground(Color.lightGray);
+
+        gameTimeText.setText("0");
+        playerLifeText.setText("3");
+        currScoreText.setText("0");
+
+    
 
 
         //Create infoPanel
@@ -68,9 +71,6 @@ public class GameWindow extends JFrame implements ActionListener, /*KeyListener,
 
         infoPanel.add(playerLifeLabel);
         infoPanel.add(playerLifeText);
-
-        infoPanel.add(highScoreLabel);
-        infoPanel.add(highScoreText);
 
         infoPanel.add(currScoreLabel);
         infoPanel.add(currScoreText);
@@ -138,9 +138,9 @@ public class GameWindow extends JFrame implements ActionListener, /*KeyListener,
     public void updateCurrentScore(int score) {
         currScoreText.setText(Integer.toString(score));
     }
-
+ 
     //Implement methods in MouseListener interface
-    @Override
+    /*@Override
     public void mouseClicked(MouseEvent e) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'mouseClicked'");
@@ -168,6 +168,6 @@ public class GameWindow extends JFrame implements ActionListener, /*KeyListener,
     public void mouseExited(MouseEvent e) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'mouseExited'");
-    }
+    }*/
 
 }

@@ -5,7 +5,7 @@ import java.awt.Rectangle;
 
 public class Player {
     private int pX, pY; //Player position 
-    private int pWidth = 20, pHeight = 20; //Size of player
+    private int pWidth = 25, pHeight = 25; //Size of player
     private int speed = 10; //Speed of the player
     private Color color = Color.WHITE;
 
