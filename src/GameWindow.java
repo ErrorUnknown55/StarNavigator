@@ -2,7 +2,7 @@ import java.awt.*;			// need this for GUI objects
 import java.awt.event.*;			// need this for Layout Managers
 import javax.swing.*;
 
-public class GameWindow extends JFrame implements ActionListener/*, KeyListener, MouseListener*/ {
+public class GameWindow extends JFrame implements ActionListener {
 
     //Declare labels 
     private JLabel gameTimeLabel, playerLifeLabel, currScoreLabel;
@@ -53,7 +53,7 @@ public class GameWindow extends JFrame implements ActionListener/*, KeyListener,
         //currScoreText.setBackground(Color.lightGray);
 
         gameTimeText.setText("0");
-        playerLifeText.setText("3");
+        playerLifeText.setText("0");
         currScoreText.setText("0");
 
     
@@ -138,36 +138,13 @@ public class GameWindow extends JFrame implements ActionListener/*, KeyListener,
     public void updateCurrentScore(int score) {
         currScoreText.setText(Integer.toString(score));
     }
- 
-    //Implement methods in MouseListener interface
-    /*@Override
-    public void mouseClicked(MouseEvent e) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'mouseClicked'");
+
+    public void updateGameTime(int time) {
+        gameTimeText.setText(Integer.toString(time));
     }
 
-    @Override
-    public void mousePressed(MouseEvent e) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'mousePressed'");
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'mouseReleased'");
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'mouseEntered'");
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'mouseExited'");
-    }*/
+    public void updatePlayerLives(int lives) {
+        playerLifeText.setText(Integer.toString(lives));
+    } 
 
 }

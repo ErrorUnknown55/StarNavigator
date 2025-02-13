@@ -7,10 +7,11 @@ import javax.swing.*;
 
 public class GamePanel extends JPanel implements Runnable, KeyListener {
     // Game screen width and height
-    private static final int gameScrWidth = 550;
+    private static final int gameScrWidth = 520;
     private static final int gameScrHeight = 500;
 
     private Thread gameThread;
+    
     private boolean running = false;
 
     //GameWindow obj
@@ -18,6 +19,10 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 
     //Player obj
     private Player player;
+
+    // Timer variables
+    private int timer = 0; // Timer in seconds
+    private Timer gameTimer;
 
     // Projectile variables
     private List<Rectangle> projectiles = new ArrayList<>();
@@ -30,6 +35,9 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 
     // Score
     private int score = 0;
+    
+    //Lives
+    private int lives = 3;
 
     public GamePanel(GameWindow gameWindow) {
         this.gameWindow = gameWindow;
@@ -40,18 +48,30 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 
         //Initialize player
         player = new Player(gameScrWidth / 2, gameScrHeight - 50);
+
+        gameTimer = new Timer(1000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                timer++; // Increment timer every second
+                gameWindow.updateGameTime(timer); // Update the game time in the GameWindow
+            }
+        });
+        
     }
 
     public void startGame() {
         running = true;
+        gameWindow.updatePlayerLives(lives);
         gameThread = new Thread(this);
         gameThread.start();
+        gameTimer.start();
         requestFocusInWindow();  //Request focues to receive key events
     }
 
     
     public void stopGame() {
         running = false;
+        gameTimer.stop();
     }
 
     @Override
@@ -70,37 +90,37 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
     private void update() {
         
         // Spawn enemies
-        if (Math.random() * spawnRate < 1) {
+        if(Math.random() * spawnRate < 1) {
             int enemyX = (int) (Math.random() * (gameScrWidth - 20));
-            enemies.add(new Rectangle(enemyX, 0, 20, 20));
+            enemies.add(new Rectangle(enemyX, 0, 25, 25));
         }
 
         // Move enemies
         Iterator<Rectangle> enemyIterator = enemies.iterator();
-        while (enemyIterator.hasNext()) {
+        while(enemyIterator.hasNext()) {
             Rectangle enemy = enemyIterator.next();
             enemy.y += enemySpeed;
-            if (enemy.y > gameScrHeight) {
+            if(enemy.y > gameScrHeight) {
                 enemyIterator.remove();
             }
         }
 
         // Move projectiles
         Iterator<Rectangle> projectileIterator = projectiles.iterator();
-        while (projectileIterator.hasNext()) {
+        while(projectileIterator.hasNext()) {
             Rectangle projectile = projectileIterator.next();
             projectile.y -= projectileSpeed;
-            if (projectile.y < 0) {
+            if(projectile.y < 0) {
                 projectileIterator.remove();
             }
         }
 
         // Check for collisions
         enemyIterator = enemies.iterator();
-        while (enemyIterator.hasNext()) {
+        while(enemyIterator.hasNext()) {
             Rectangle enemy = enemyIterator.next();
             projectileIterator = projectiles.iterator();
-            while (projectileIterator.hasNext()) {
+            while(projectileIterator.hasNext()) {
                 Rectangle projectile = projectileIterator.next();
                 if (enemy.intersects(projectile)) {
                     enemyIterator.remove();
@@ -110,8 +130,14 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
                     break;
                 }
             }
-            if (enemy.intersects(player.getBounds())) {
-                running = false; // Game over
+
+            if(enemy.intersects(player.getBounds())) {
+                enemyIterator.remove();
+                lives--;
+                gameWindow.updatePlayerLives(lives);//Updates the life count
+
+                if(lives <= 0)
+                    stopGame();
             }
         }
     }
@@ -142,15 +168,14 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
-        if (key == KeyEvent.VK_LEFT) {
+        if(key == KeyEvent.VK_LEFT) 
             player.moveLeft();
-        }
-        if (key == KeyEvent.VK_RIGHT) {
+        
+        if(key == KeyEvent.VK_RIGHT) 
             player.moveRigth(gameScrHeight);
-        }
-        if (key == KeyEvent.VK_SPACE) {
+        
+        if(key == KeyEvent.VK_SPACE) 
             projectiles.add(new Rectangle(player.getX() + 5, player.getY() - 20, 5, 10));
-        }
     }
 
     @Override
