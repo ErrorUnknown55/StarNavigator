@@ -28,6 +28,8 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
     //Projectile variables
     private List<Rectangle> projectiles = new ArrayList<>();
     private int projectileSpeed = 10;
+    private int weapCDTime = 0; //Limits the time users can shot
+    private int setCoolDownTime = 120;
 
     //Enemy variables
     private List<Rectangle> enemies = new ArrayList<>();
@@ -82,6 +84,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
         timer = 0;
         lives = 3;
         score = 0;
+        weapCDTime = 0;
         enemies.clear();
         projectiles.clear();
 
@@ -99,22 +102,24 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
             update();
             repaint();
             try {
-                Thread.sleep(16); // ~60 FPS
+                Thread.sleep(16);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
     }
+    
+
 
     private void update() {
         
-        // Spawn enemies
+        //Spawn enemies
         if(Math.random() * spawnRate < 1) {
             int enemyX = (int) (Math.random() * (gameScrWidth - 20));
             enemies.add(new Rectangle(enemyX, 0, 25, 25));
         }
 
-        // Move enemies
+        //Move enemies
         Iterator<Rectangle> enemyIterator = enemies.iterator();
         while(enemyIterator.hasNext()) {
             Rectangle enemy = enemyIterator.next();
@@ -124,7 +129,21 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
             }
         }
 
-        // Move projectiles
+
+        if(weapCDTime > 0) {
+            weapCDTime --;
+            gameWindow.updateWeaponCDTime(weapCDTime);
+        }
+
+        if(timer == 5) {
+            score += 5;
+            gameWindow.updateCurrentScore(score);
+        }
+        
+
+            
+
+        //Move projectiles
         Iterator<Rectangle> projectileIterator = projectiles.iterator();
         while(projectileIterator.hasNext()) {
             Rectangle projectile = projectileIterator.next();
@@ -134,7 +153,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
             }
         }
 
-        // Check for collisions
+        //Check for collisions
         enemyIterator = enemies.iterator();
         while(enemyIterator.hasNext()) {
             Rectangle enemy = enemyIterator.next();
@@ -144,8 +163,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
                 if (enemy.intersects(projectile)) {
                     enemyIterator.remove();
                     projectileIterator.remove();
-                    score += 10;
-                    gameWindow.updateCurrentScore(score);
+                    
                     break;
                 }
             }
@@ -176,7 +194,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
         }
 
         // Draw enemies
-        g2d.setColor(Color.GREEN);
+        g2d.setColor(Color.RED);
         for (Rectangle enemy : enemies) {
             g2d.fill(enemy);
         }
@@ -191,8 +209,11 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
         if(key == KeyEvent.VK_RIGHT) 
             player.moveRigth(gameScrHeight);
         
-        if(key == KeyEvent.VK_SPACE) 
+        if(key == KeyEvent.VK_SPACE && weapCDTime == 0) {
             projectiles.add(new Rectangle(player.getX() + 5, player.getY() - 20, 5, 10));
+            weapCDTime = setCoolDownTime;
+        } 
+            
     }
 
     @Override

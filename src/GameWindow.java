@@ -5,10 +5,10 @@ import javax.swing.*;
 public class GameWindow extends JFrame implements ActionListener {
 
     //Declare labels 
-    private JLabel gameTimeLabel, playerLifeLabel, currScoreLabel;
+    private JLabel gameTimeLabel, playerLifeLabel, currLevelLabel, weaponCoolDwnLabel;
 
     //Declare text fields
-    private JTextField gameTimeText, playerLifeText, currScoreText;
+    private JTextField gameTimeText, playerLifeText, currLevelText, weaponCoolDwnText;
 
     //Declare buttons
 	private JButton startBtn, restartBtn, exitBtn;
@@ -37,40 +37,46 @@ public class GameWindow extends JFrame implements ActionListener {
         Font customFont = new Font("Exo", Font.BOLD, 16);
 
         //Create Labels
-        gameTimeLabel = new JLabel("Time: ");
-        playerLifeLabel = new JLabel("Lives: ");
-        currScoreLabel = new JLabel("Score:");
+        gameTimeLabel = new JLabel("Time:");
+        playerLifeLabel = new JLabel("Lives:");
+        currLevelLabel = new JLabel("Level:");
+        weaponCoolDwnLabel = new JLabel("Weapon cooldown:");
 
         //Label FontStyle
         gameTimeLabel.setFont(customFont);
         playerLifeLabel.setFont(customFont);
-        currScoreLabel.setFont(customFont);
+        currLevelLabel.setFont(customFont);
+        weaponCoolDwnLabel.setFont(customFont);
 
         //Create text fields and set their colour, etc.
         gameTimeText = new JTextField(5);
         playerLifeText = new JTextField(5);
-        currScoreText = new JTextField(5);
+        currLevelText = new JTextField(5);
+        weaponCoolDwnText = new JTextField(5);
+
 
         gameTimeText.setEditable(false);
         playerLifeText.setEditable(false);
-        currScoreText.setEditable(false);
+        currLevelText.setEditable(false);
+        weaponCoolDwnText.setEditable(false);
 
         //Text FontStyle
         gameTimeText.setFont(customFont);
         playerLifeText.setFont(customFont);
-        currScoreText.setFont(customFont);
+        currLevelText.setFont(customFont);
+        weaponCoolDwnText.setFont(customFont);
 
         gameTimeText.setText("0");
         playerLifeText.setText("0");
-        currScoreText.setText("0");
+        currLevelText.setText("0");
+        weaponCoolDwnText.setText("0");
 
 
 
         //Create infoPanel
 		JPanel infoPanel = new JPanel();
-        gridLayout = new GridLayout(1, 4);
+        gridLayout = new GridLayout(2, 2);
         infoPanel.setLayout(gridLayout);
-        infoPanel.setBackground(Color.white);//Set the background color white
         
         //Add user interface objects to infoPanel
         infoPanel.add(gameTimeLabel);
@@ -79,12 +85,15 @@ public class GameWindow extends JFrame implements ActionListener {
         infoPanel.add(playerLifeLabel);
         infoPanel.add(playerLifeText);
 
-        infoPanel.add(currScoreLabel);
-        infoPanel.add(currScoreText);
+        infoPanel.add(currLevelLabel);
+        infoPanel.add(currLevelText);
+
+        infoPanel.add(weaponCoolDwnLabel);
+        infoPanel.add(weaponCoolDwnText);
 
         //Create gamePanel
         gamePanel = new GamePanel(this);
-        gamePanel.setPreferredSize(new Dimension(550, 500));
+        //gamePanel.setPreferredSize(new Dimension(575, 500));
     
     
         //Create buttons
@@ -152,7 +161,7 @@ public class GameWindow extends JFrame implements ActionListener {
 
 
     public void updateCurrentScore(int score) {
-        currScoreText.setText(Integer.toString(score));
+        currLevelText.setText(Integer.toString(score));
     }
 
     public void updateGameTime(int time) {
@@ -160,7 +169,17 @@ public class GameWindow extends JFrame implements ActionListener {
     }
 
     public void updatePlayerLives(int lives) {
+        
+        if (lives != 0)
+            playerLifeText.setForeground(Color.black);
+        else
+            playerLifeText.setForeground(Color.RED);
+        
         playerLifeText.setText(Integer.toString(lives));
+    } 
+
+    public void updateWeaponCDTime(int cDTime) {
+        weaponCoolDwnText.setText(Integer.toString(cDTime));
     } 
 
 }
