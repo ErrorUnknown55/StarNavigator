@@ -11,7 +11,7 @@ public class GameWindow extends JFrame implements ActionListener {
     private JTextField gameTimeText, playerLifeText, currScoreText;
 
     //Declare buttons
-	private JButton startBtn, pauseBtn, exitBtn;
+	private JButton startBtn, restartBtn, exitBtn;
 
     private JPanel mainPanel;
     private GamePanel gamePanel;
@@ -33,10 +33,18 @@ public class GameWindow extends JFrame implements ActionListener {
 
         GridLayout gridLayout;
 
+        //Create a custom font
+        Font customFont = new Font("Exo", Font.BOLD, 16);
+
         //Create Labels
         gameTimeLabel = new JLabel("Time: ");
         playerLifeLabel = new JLabel("Lives: ");
         currScoreLabel = new JLabel("Score:");
+
+        //Label FontStyle
+        gameTimeLabel.setFont(customFont);
+        playerLifeLabel.setFont(customFont);
+        currScoreLabel.setFont(customFont);
 
         //Create text fields and set their colour, etc.
         gameTimeText = new JTextField(5);
@@ -46,17 +54,16 @@ public class GameWindow extends JFrame implements ActionListener {
         gameTimeText.setEditable(false);
         playerLifeText.setEditable(false);
         currScoreText.setEditable(false);
-        
 
-        //gameTimeText.setBackground(Color.lightGray);
-        //playerLifeText.setBackground(Color.lightGray);
-        //currScoreText.setBackground(Color.lightGray);
+        //Text FontStyle
+        gameTimeText.setFont(customFont);
+        playerLifeText.setFont(customFont);
+        currScoreText.setFont(customFont);
 
         gameTimeText.setText("0");
         playerLifeText.setText("0");
         currScoreText.setText("0");
 
-    
 
 
         //Create infoPanel
@@ -82,12 +89,18 @@ public class GameWindow extends JFrame implements ActionListener {
     
         //Create buttons
 		startBtn = new JButton("Play");
-        pauseBtn = new JButton("Pasue");
+        restartBtn = new JButton("Restart");
         exitBtn = new JButton("Exit");
+
+        //Button FontStyle
+        startBtn.setFont(customFont);
+        restartBtn.setFont(customFont);
+        exitBtn.setFont(customFont);
+        
 
 		// add listener to each button (same as the current object)
 		startBtn.addActionListener(this);
-		pauseBtn.addActionListener(this);
+		restartBtn.addActionListener(this);
 		exitBtn.addActionListener(this);
 
         //Create buttonPanel
@@ -98,7 +111,7 @@ public class GameWindow extends JFrame implements ActionListener {
 
         //Add buttons to buttonPanel
 		buttonPanel.add(startBtn);
-		buttonPanel.add(pauseBtn);
+		buttonPanel.add(restartBtn);
 		buttonPanel.add(exitBtn);
 
         // add sub-panels with GUI objects to mainPanel and set its colour
@@ -124,14 +137,17 @@ public class GameWindow extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         //Start
-        if (e.getSource() == startBtn) {
+        if(e.getSource() == startBtn) 
             gamePanel.startGame(); // Start the game
-        } 
+        
+
+        if(e.getSource() == restartBtn)
+            gamePanel.restartGame();
 
         //Exit
-        if (e.getSource() == exitBtn) {
+        if(e.getSource() == exitBtn) 
             System.exit(0);
-        }
+        
     }
 
 

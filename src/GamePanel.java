@@ -6,8 +6,9 @@ import java.util.List;
 import javax.swing.*;
 
 public class GamePanel extends JPanel implements Runnable, KeyListener {
-    // Game screen width and height
-    private static final int gameScrWidth = 520;
+    
+    //Game screen width and height
+    private static final int gameScrWidth = 500;
     private static final int gameScrHeight = 500;
 
     private Thread gameThread;
@@ -20,20 +21,20 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
     //Player obj
     private Player player;
 
-    // Timer variables
+    //Timer variables
     private int timer = 0; // Timer in seconds
     private Timer gameTimer;
 
-    // Projectile variables
+    //Projectile variables
     private List<Rectangle> projectiles = new ArrayList<>();
-    private int projectileSpeed = 7;
+    private int projectileSpeed = 10;
 
-    // Enemy variables
+    //Enemy variables
     private List<Rectangle> enemies = new ArrayList<>();
-    private int enemySpeed = 2;
+    private int enemySpeed = 5;
     private int spawnRate = 60;
 
-    // Score
+    //Score
     private int score = 0;
     
     //Lives
@@ -72,6 +73,24 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
     public void stopGame() {
         running = false;
         gameTimer.stop();
+    }
+
+    public void restartGame() {
+        stopGame();
+        
+        //Reset the game veriables
+        timer = 0;
+        lives = 3;
+        score = 0;
+        enemies.clear();
+        projectiles.clear();
+
+        gameWindow.updateGameTime(timer);
+        gameWindow.updatePlayerLives(lives);
+        gameWindow.updateCurrentScore(score);
+
+        // Restart the game
+        startGame();
     }
 
     @Override
@@ -161,8 +180,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
         for (Rectangle enemy : enemies) {
             g2d.fill(enemy);
         }
-
-        
     }
 
     @Override
