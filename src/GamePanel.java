@@ -29,7 +29,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
     private List<Rectangle> projectiles = new ArrayList<>();
     private int projectileSpeed = 10;
     private int weapCDTime = 0; //Limits the time users can shot
-    private int setCoolDownTime = 120;
+    private int setCoolDownTime = 240;
 
     //Enemy variables
     private List<Rectangle> enemies = new ArrayList<>();
@@ -84,6 +84,8 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
         timer = 0;
         lives = 3;
         score = 0;
+        enemySpeed = 5;
+        spawnRate = 60;
         weapCDTime = 0;
         enemies.clear();
         projectiles.clear();
@@ -134,10 +136,68 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
             weapCDTime --;
             gameWindow.updateWeaponCDTime(weapCDTime);
         }
+        
+        switch (timer) {
 
-        if(timer == 5) {
-            score += 5;
-            gameWindow.updateCurrentScore(score);
+            case 0:
+                enemySpeed = 2;
+                spawnRate = 60;
+                gameWindow.updateCurrentScore(1);
+                break;
+            
+            case 10:
+                enemySpeed = 4;
+                spawnRate = 55;
+                gameWindow.updateCurrentScore(2);
+                break;
+
+            case 20:
+                enemySpeed = 6;
+                spawnRate = 50;
+                gameWindow.updateCurrentScore(3);
+                break;
+
+            case 30:
+                enemySpeed = 8;
+                spawnRate = 45;
+                gameWindow.updateCurrentScore(4);
+                break;
+
+            case 40:
+                enemySpeed = 10;
+                spawnRate = 40;
+                gameWindow.updateCurrentScore(5);
+                break;
+            
+            case 50:
+                enemySpeed = 12;
+                spawnRate = 35;
+                gameWindow.updateCurrentScore(6);
+                break;
+
+            case 60:
+                enemySpeed = 14;
+                spawnRate = 30;
+                gameWindow.updateCurrentScore(7);
+                break;
+
+            case 70:
+                enemySpeed = 16;
+                gameWindow.updateCurrentScore(8);
+                break;
+
+            case 80:
+                enemySpeed = 18;
+                gameWindow.updateCurrentScore(9);
+                break;
+
+            case 90:
+                enemySpeed = 20;
+                gameWindow.updateCurrentScore(10);
+                break;
+        
+            default:
+                break;
         }
         
 
