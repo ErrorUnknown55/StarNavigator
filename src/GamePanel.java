@@ -37,8 +37,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
     private int enemySpeed = 5;
     private int spawnRate = 60;
 
-    //level
-    //private int level = 0;
+    //Current HighScore
     private int currHighScore = 0;
 
     //Lives
@@ -137,7 +136,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
             }
         }
 
-
+        //Weapon Cooldown timer
         if(weapCDTime > 0) {
             weapCDTime --;
             gameWindow.updateWeaponCDTime(weapCDTime);
@@ -230,7 +229,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
                 if (enemy.intersects(projectile)) {
                     enemyIterator.remove();
                     projectileIterator.remove();
-                    
                     break;
                 }
             }
@@ -243,9 +241,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
                 if(lives <= 0){
                     stopGame();
                 }
-
-                
-                    
 
             }
         }

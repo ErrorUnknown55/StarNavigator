@@ -160,7 +160,7 @@ public class GameWindow extends JFrame implements ActionListener {
         if(e.getSource() == startBtn) 
             gamePanel.startGame(); //Start the game
         
-
+        //Restart
         if(e.getSource() == restartBtn)
             gamePanel.restartGame();
 
