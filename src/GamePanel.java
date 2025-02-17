@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import javax.swing.*;
+import org.w3c.dom.Text;
 
 public class GamePanel extends JPanel implements Runnable, KeyListener {
     
@@ -29,7 +30,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
     private List<Rectangle> projectiles = new ArrayList<>();
     private int projectileSpeed = 10;
     private int weapCDTime = 0; //Limits the time users can shot
-    private int setCoolDownTime = 240;
+    private int setCoolDownTime = 0;
 
     //Enemy variables
     private List<Rectangle> enemies = new ArrayList<>();
@@ -92,7 +93,8 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 
         gameWindow.updateGameTime(timer);
         gameWindow.updatePlayerLives(lives);
-        gameWindow.updateCurrentScore(score);
+        gameWindow.updateCurrentLevel(score);
+        gameWindow.updateWeaponCDTime(0);
 
         // Restart the game
         startGame();
@@ -137,71 +139,72 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
             gameWindow.updateWeaponCDTime(weapCDTime);
         }
         
+        //Changes the game play based on the level
         switch (timer) {
-
             case 0:
-                enemySpeed = 2;
+                enemySpeed = 4;
                 spawnRate = 60;
-                gameWindow.updateCurrentScore(1);
+                setCoolDownTime = 120;
+                gameWindow.updateCurrentLevel(1);
                 break;
             
             case 10:
-                enemySpeed = 4;
+                enemySpeed = 6;
                 spawnRate = 55;
-                gameWindow.updateCurrentScore(2);
+                gameWindow.updateCurrentLevel(2);
                 break;
 
             case 20:
-                enemySpeed = 6;
+                enemySpeed = 8;
                 spawnRate = 50;
-                gameWindow.updateCurrentScore(3);
+                gameWindow.updateCurrentLevel(3);
                 break;
 
             case 30:
-                enemySpeed = 8;
                 spawnRate = 45;
-                gameWindow.updateCurrentScore(4);
+                setCoolDownTime = 240;
+                gameWindow.updateCurrentLevel(4);
                 break;
 
             case 40:
                 enemySpeed = 10;
                 spawnRate = 40;
-                gameWindow.updateCurrentScore(5);
+                gameWindow.updateCurrentLevel(5);
                 break;
             
             case 50:
                 enemySpeed = 12;
                 spawnRate = 35;
-                gameWindow.updateCurrentScore(6);
+                setCoolDownTime = 480;
+                gameWindow.updateCurrentLevel(6);
                 break;
 
             case 60:
                 enemySpeed = 14;
                 spawnRate = 30;
-                gameWindow.updateCurrentScore(7);
+                gameWindow.updateCurrentLevel(7);
                 break;
 
             case 70:
                 enemySpeed = 16;
-                gameWindow.updateCurrentScore(8);
+                gameWindow.updateCurrentLevel(8);
                 break;
 
             case 80:
                 enemySpeed = 18;
-                gameWindow.updateCurrentScore(9);
+                setCoolDownTime = 520;
+                gameWindow.updateCurrentLevel(9);
                 break;
 
             case 90:
                 enemySpeed = 20;
-                gameWindow.updateCurrentScore(10);
+                gameWindow.updateCurrentLevel(10);
                 break;
         
             default:
                 break;
         }
         
-
-            
 
         //Move projectiles
         Iterator<Rectangle> projectileIterator = projectiles.iterator();
@@ -233,8 +236,11 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
                 lives--;
                 gameWindow.updatePlayerLives(lives);//Updates the life count
 
-                if(lives <= 0)
+                if(lives <= 0){
                     stopGame();
+                }
+                    
+
             }
         }
     }
@@ -248,7 +254,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
         player.draw(g2d);
     
         // Draw projectiles
-        g2d.setColor(Color.RED);
+        g2d.setColor(Color.GREEN);
         for (Rectangle projectile : projectiles) {
             g2d.fill(projectile);
         }

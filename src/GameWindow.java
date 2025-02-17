@@ -160,7 +160,7 @@ public class GameWindow extends JFrame implements ActionListener {
     }
 
 
-    public void updateCurrentScore(int score) {
+    public void updateCurrentLevel(int score) {
         currLevelText.setText(Integer.toString(score));
     }
 
@@ -170,10 +170,10 @@ public class GameWindow extends JFrame implements ActionListener {
 
     public void updatePlayerLives(int lives) {
         
-        if (lives != 0)
-            playerLifeText.setForeground(Color.black);
-        else
+        if (lives <= 1 )
             playerLifeText.setForeground(Color.RED);
+        else
+            playerLifeText.setForeground(Color.black);
         
         playerLifeText.setText(Integer.toString(lives));
     } 

@@ -26,8 +26,8 @@ public class Player {
     public void moveRigth (int scrWidth) {
         pX += speed;
         
-        if (pX > 530)
-            pX = 530; //Prevents the player form moving out of the screen    
+        if (pX > scrWidth - 25)
+            pX = (scrWidth - 25); //Prevents the player form moving out of the screen    
     }
     
     //Get the player shape(for collision detection)
@@ -35,7 +35,7 @@ public class Player {
         return new Rectangle(pX, pY, pWidth, pHeight);
     }
 
-     // Draw the player
+     //Draw the player
      public void draw(Graphics2D g2d) {
         int[] xPoints = {pX, pX + pWidth, pX + pWidth / 2};
         int[] yPoints = {pY + pHeight, pY + pHeight, pY};
@@ -43,12 +43,12 @@ public class Player {
         g2d.fillPolygon(xPoints, yPoints, 3);
     }
 
-    // Getter for player's X position (used for projectile spawning)
+    //Getter for player's X position (used for projectile spawning)
     public int getX() {
         return pX;
     }
 
-    // Getter for player's Y position (used for projectile spawning)
+    //Getter for player's Y position (used for projectile spawning)
     public int getY() {
         return pY;
     }
