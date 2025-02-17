@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import javax.swing.*;
-import org.w3c.dom.Text;
+
 
 public class GamePanel extends JPanel implements Runnable, KeyListener {
     
@@ -23,7 +23,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
     private Player player;
 
     //Timer variables
-    private int timer = 0; // Timer in seconds
+    private int timer = 0;
     private Timer gameTimer;
 
     //Projectile variables
@@ -56,8 +56,8 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
         gameTimer = new Timer(1000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                timer++; // Increment timer every second
-                gameWindow.updateGameTime(timer); // Update the game time in the GameWindow
+                timer++; //Increment timer every second
+                gameWindow.updateGameTime(timer); //Update the game time in the GameWindow
             }
         });
         
@@ -96,7 +96,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
         gameWindow.updateCurrentLevel(score);
         gameWindow.updateWeaponCDTime(0);
 
-        // Restart the game
+        //Restart the game
         startGame();
     }
 
@@ -250,16 +250,16 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
 
-        // Draw player (triangle)
+        //Draw player (triangle)
         player.draw(g2d);
     
-        // Draw projectiles
+        //Draw projectiles
         g2d.setColor(Color.GREEN);
         for (Rectangle projectile : projectiles) {
             g2d.fill(projectile);
         }
 
-        // Draw enemies
+        //Draw enemies
         g2d.setColor(Color.RED);
         for (Rectangle enemy : enemies) {
             g2d.fill(enemy);
