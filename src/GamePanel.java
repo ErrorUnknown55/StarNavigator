@@ -29,7 +29,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
     //Projectile variables
     private List<Rectangle> projectiles = new ArrayList<>();
     private int projectileSpeed = 10;
-    private int weapCDTime = 0; //Limits the time users can shot
+    private int weapCDTime = 0; 
     private int setCoolDownTime = 0;
 
     //Enemy variables
@@ -37,9 +37,10 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
     private int enemySpeed = 5;
     private int spawnRate = 60;
 
-    //Score
-    private int score = 0;
-    
+    //level
+    //private int level = 0;
+    private int currHighScore = 0;
+
     //Lives
     private int lives = 3;
 
@@ -75,6 +76,11 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
     
     public void stopGame() {
         running = false;
+        if(currHighScore <= timer){
+            currHighScore = timer;
+            gameWindow.updateHighScore(currHighScore);
+        }
+            
         gameTimer.stop();
     }
 
@@ -84,7 +90,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
         //Reset the game veriables
         timer = 0;
         lives = 3;
-        score = 0;
         enemySpeed = 5;
         spawnRate = 60;
         weapCDTime = 0;
@@ -93,7 +98,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 
         gameWindow.updateGameTime(timer);
         gameWindow.updatePlayerLives(lives);
-        gameWindow.updateCurrentLevel(score);
         gameWindow.updateWeaponCDTime(0);
 
         //Restart the game
@@ -239,6 +243,8 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
                 if(lives <= 0){
                     stopGame();
                 }
+
+                
                     
 
             }

@@ -18,16 +18,18 @@ public class Player {
     public void moveLeft () {
         pX -= speed;
         
+        //Prevents the player form moving out of the screen
         if(pX < 0)
-            pX = 0; //Prevents the player form moving out of the screen
+            pX = 0; 
     }
 
     //Move the player Right
     public void moveRigth (int scrWidth) {
         pX += speed;
         
+        //Prevents the player form moving out of the screen  
         if (pX > scrWidth - 25)
-            pX = (scrWidth - 25); //Prevents the player form moving out of the screen    
+            pX = (scrWidth - 25);   
     }
     
     //Get the player shape(for collision detection)
@@ -35,8 +37,8 @@ public class Player {
         return new Rectangle(pX, pY, pWidth, pHeight);
     }
 
-     //Draw the player
-     public void draw(Graphics2D g2d) {
+    //Draw the player
+    public void draw(Graphics2D g2d) {
         int[] xPoints = {pX, pX + pWidth, pX + pWidth / 2};
         int[] yPoints = {pY + pHeight, pY + pHeight, pY};
         g2d.setColor(color);

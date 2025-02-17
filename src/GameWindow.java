@@ -5,10 +5,10 @@ import javax.swing.*;
 public class GameWindow extends JFrame implements ActionListener {
 
     //Declare labels 
-    private JLabel gameTimeLabel, playerLifeLabel, currLevelLabel, weaponCoolDwnLabel;
+    private JLabel gameTimeLabel, playerLifeLabel, currLevelLabel, weaponCoolDwnLabel, highScoreLabel;
 
     //Declare text fields
-    private JTextField gameTimeText, playerLifeText, currLevelText, weaponCoolDwnText;
+    private JTextField gameTimeText, playerLifeText, currLevelText, weaponCoolDwnText, highScoreText;
 
     //Declare buttons
 	private JButton startBtn, restartBtn, exitBtn;
@@ -24,7 +24,7 @@ public class GameWindow extends JFrame implements ActionListener {
         setTitle("Star Navigator");
 
         //Set size of the game panel
-        setSize(700, 650);
+        setSize(700, 700);
 
         //Create main panel
         mainPanel = new JPanel();
@@ -38,35 +38,41 @@ public class GameWindow extends JFrame implements ActionListener {
 
         //Create Labels
         gameTimeLabel = new JLabel("Time:");
+        highScoreLabel = new JLabel("High Score:");
         playerLifeLabel = new JLabel("Lives:");
         currLevelLabel = new JLabel("Level:");
         weaponCoolDwnLabel = new JLabel("Weapon cooldown:");
 
         //Label FontStyle
         gameTimeLabel.setFont(customFont);
+        highScoreLabel.setFont(customFont);
         playerLifeLabel.setFont(customFont);
         currLevelLabel.setFont(customFont);
         weaponCoolDwnLabel.setFont(customFont);
 
         //Create text fields and set their colour, etc.
         gameTimeText = new JTextField(5);
+        highScoreText = new JTextField(5);
         playerLifeText = new JTextField(5);
         currLevelText = new JTextField(5);
         weaponCoolDwnText = new JTextField(5);
 
 
         gameTimeText.setEditable(false);
+        highScoreText.setEditable(false);
         playerLifeText.setEditable(false);
         currLevelText.setEditable(false);
         weaponCoolDwnText.setEditable(false);
 
         //Text FontStyle
         gameTimeText.setFont(customFont);
+        highScoreText.setFont(customFont);
         playerLifeText.setFont(customFont);
         currLevelText.setFont(customFont);
         weaponCoolDwnText.setFont(customFont);
 
         gameTimeText.setText("0");
+        highScoreText.setText("0");
         playerLifeText.setText("0");
         currLevelText.setText("0");
         weaponCoolDwnText.setText("0");
@@ -75,12 +81,15 @@ public class GameWindow extends JFrame implements ActionListener {
 
         //Create infoPanel
 		JPanel infoPanel = new JPanel();
-        gridLayout = new GridLayout(2, 2);
+        gridLayout = new GridLayout(3, 2);
         infoPanel.setLayout(gridLayout);
         
         //Add user interface objects to infoPanel
         infoPanel.add(gameTimeLabel);
         infoPanel.add(gameTimeText);
+
+        infoPanel.add(highScoreLabel);
+        infoPanel.add(highScoreText);
 
         infoPanel.add(playerLifeLabel);
         infoPanel.add(playerLifeText);
@@ -91,11 +100,10 @@ public class GameWindow extends JFrame implements ActionListener {
         infoPanel.add(weaponCoolDwnLabel);
         infoPanel.add(weaponCoolDwnText);
 
+
         //Create gamePanel
         gamePanel = new GamePanel(this);
-        //gamePanel.setPreferredSize(new Dimension(575, 500));
-    
-    
+        
         //Create buttons
 		startBtn = new JButton("Play");
         restartBtn = new JButton("Restart");
@@ -107,7 +115,7 @@ public class GameWindow extends JFrame implements ActionListener {
         exitBtn.setFont(customFont);
         
 
-		// add listener to each button (same as the current object)
+		//Add listener to each button (same as the current object)
 		startBtn.addActionListener(this);
 		restartBtn.addActionListener(this);
 		exitBtn.addActionListener(this);
@@ -123,21 +131,24 @@ public class GameWindow extends JFrame implements ActionListener {
 		buttonPanel.add(restartBtn);
 		buttonPanel.add(exitBtn);
 
-        // add sub-panels with GUI objects to mainPanel and set its colour
+        //Add sub-panels with GUI objects to mainPanel and set its colour
         mainPanel.add(infoPanel);
         mainPanel.add(gamePanel);
         mainPanel.add(buttonPanel);
         mainPanel.setBackground(Color.WHITE);
         
-        // add mainPanel to window surface
+        //Add mainPanel to window surface
 		c = getContentPane();
 		c.add(mainPanel);
 
 
-        // Center the frame on the screen
+        //Center the frame on the screen
         setLocationRelativeTo(null);
 
-        // set properties of window
+        //Makes the window non-resizable
+        setResizable(false);
+
+        //Set properties of window
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true); 
     }
@@ -147,7 +158,7 @@ public class GameWindow extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         //Start
         if(e.getSource() == startBtn) 
-            gamePanel.startGame(); // Start the game
+            gamePanel.startGame(); //Start the game
         
 
         if(e.getSource() == restartBtn)
@@ -160,8 +171,12 @@ public class GameWindow extends JFrame implements ActionListener {
     }
 
 
-    public void updateCurrentLevel(int score) {
-        currLevelText.setText(Integer.toString(score));
+    public void updateCurrentLevel(int level) {
+        currLevelText.setText(Integer.toString(level));
+    }
+
+    public void updateHighScore(int highScore) {
+        highScoreText.setText(Integer.toString(highScore));
     }
 
     public void updateGameTime(int time) {
